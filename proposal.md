@@ -1,13 +1,14 @@
 # CS30 Major Project
 
 ## Description
-tell me what youre going to build......
+I am trying to make a clone of Slither io. (the snake multiplayer game)
 
 ## Needs to have list
-  - thing 1
-  - thing 2
-  - etc
+  - Suitable ai for competition
+  - a functioning snake 
+  - good ui 
+  - dots scatered around the map for food and so the snake gets bigger
 
 ## Nice to have list
-  - other thing
-  - yet one more thing
+  - something to customize your snake
+  - ???
