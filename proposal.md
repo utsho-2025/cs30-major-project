@@ -1,14 +1,14 @@
 # CS30 Major Project
 
 ## Description
-I am trying to make a clone of Slither io. (the snake multiplayer game)
-
+I am interested in ASCII rendering Art.
 ## Needs to have list
-  - Suitable ai for competition
-  - a functioning snake 
-  - good ui 
-  - dots scatered around the map for food and so the snake gets bigger
+  - At least 5 distict art patterns
+  - At least two interactive patterns
+  
+  
 
 ## Nice to have list
-  - something to customize your snake
-  - ???
+  - A spinning Donut
+  - 10 distinct patterns
+  - recreating ASCII art from real images(via uploading) if that's possible
