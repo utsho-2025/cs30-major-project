@@ -1,14 +1,22 @@
 # CS30 Major Project
 
 ## Description
-I am interested in ASCII rendering Art.
+I am interested in ASCII rendering Art, Where I would try to build different patterns such as spinning objects, interactive simulations and more. 
 ## Needs to have list
-  - At least 5 distict art patterns
+  - At least 5 distinct art patterns
   - At least two interactive patterns
-  
+  - working with geometric shapes
+  - a working text function
+  - a working fill and background function
+
+
+
+
   
 
 ## Nice to have list
-  - A spinning Donut
   - 10 distinct patterns
-  - recreating ASCII art from real images(via uploading) if that's possible
+  - 3d ASCII art
+  - Having various colors in texts instead of just white and black
+
+  
