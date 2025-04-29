@@ -1,17 +1,18 @@
 # CS30 Major Project
 
 ## Description
-I am trying to make a clone of Slither io. (the snake multiplayer game). I will try to implement a map for which a snake would move around and gather food to get bigger. There would be other snakes who would try to sabotage the player by running towards them. The snake would be eliminated if their head touches another snake's body.
+I am trying to build a clone of Mario. I will try to clone it as closely  as possible and will try to include the backgrounds and original soundtrack+sceneries from the original game.
 
 ## Needs to have list
-  - Suitable ai for competition
-  - a functioning snake 
-  - a map
+  - Multiple platforms to hop to
+  - a good ui
+  - a suitable map identical or almost identical to the game
   - good ui 
-  - dots scatered around the map for food and so the snake gets bigger
-  - making sure the snake follows out mouse and goes faster if shift is pressed
+  - Multiple types of enemies
+  - breakable blocks for xp
+
 
 ## Nice to have list
-  - function to customize your snake
-  - A minimap on the corner of the screen
-  - multiplayer and AI mode
+  - boss fights
+  - powerups
+  - something to customize how mario looks (clothes or accesories)

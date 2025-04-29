@@ -1,4 +1,10 @@
+let coins = [];
+let enemies;
+let xp = [];
+function preload(){
 
+  
+}
 
 // variables and objects
 let cellSize;
