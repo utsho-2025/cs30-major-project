@@ -5,14 +5,14 @@ I am trying to build a clone of Mario. I will try to clone it as closely  as pos
 
 ## Needs to have list
   - Multiple platforms to hop to
-  - a good ui
   - a suitable map identical or almost identical to the game
-  - good ui 
+
   - Multiple types of enemies
   - breakable blocks for xp
 
 
 ## Nice to have list
   - boss fights
+  - good ui 
   - powerups
   - something to customize how mario looks (clothes or accesories)
