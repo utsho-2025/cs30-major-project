@@ -1,40 +1,33 @@
-let coins = [];
-let enemies;
-let xp = [];
+// // module aliases
+// var Engine = Matter.Engine,
+//     Render = Matter.Render,
+//     Runner = Matter.Runner,
+//     Bodies = Matter.Bodies,
+//     Composite = Matter.Composite;
 
+// // create an engine
+// var engine = Engine.create();
 
-// aliases for different modules
+// // create a renderer
+// var render = Render.create({
+//     element: document.body,
+//     engine: engine
+// });
 
-let Engine = Matter.Engine;
-let Render = Matter.Render;
-let Composite = Matter.Composite;
-let Body = Matter.Body;
-let Bodies = Matter.Bodies;
-let Runner = Matter.Runner;
+// // create two boxes and a ground
+// var boxA = Bodies.rectangle(400, 200, 80, 80);
+// var boxB = Bodies.rectangle(450, 50, 80, 80);
+// var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
 
-//make and engine
-let engine;
-let render;
+// // add all of the bodies to the world
+// Composite.add(engine.world, [boxA, boxB, ground]);
 
+// // run the renderer
+// Render.run(render);
 
+// // create runner
+// var runner = Runner.create();
 
-
-
-function setup() {
-  noCanvas();
-  engine = Engine.create;
-  render = Render.create({
-    engine: Engine,
-    element: document.body,
-
-  });
-  Render.run(render);
-
-
-
-
-
-}
-
-
+// // run the engine
+// Runner.run(runner, engine);
 
