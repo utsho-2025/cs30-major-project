@@ -58,7 +58,7 @@ function setup(){
   ball.fill = "white";
   ball.velocity.x = 10;
   for(let i = 0; i< 10; i++){
-    let block = new Sprite(width/2,height/2+10,20,20); 
+    let block = new Sprite(width/2+random(-5,5),height/2+random(-5,5),20,20); 
 
 
   }
@@ -69,3 +69,6 @@ function draw(){
   background(220);
 }
 
+function mousePressed(){
+  ball.moveTo(mouse.x,mouse.y,8);
+}
