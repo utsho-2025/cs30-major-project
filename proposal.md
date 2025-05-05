@@ -6,6 +6,7 @@ I am trying to build a clone of Mario. I will try to clone it as closely  as pos
 ## Needs to have list
   - Multiple platforms to hop to
   - a suitable map identical or almost identical to the game
+  - original sound effects
 
   - Multiple types of enemies
   - breakable blocks for xp
