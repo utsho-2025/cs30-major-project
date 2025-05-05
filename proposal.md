@@ -14,6 +14,7 @@ I am trying to build a clone of Mario. I will try to clone it as closely  as pos
 
 ## Nice to have list
   - boss fights
+  - get pixilated font like mario does
   - good ui 
   - powerups
   - something to customize how mario looks (clothes or accesories)

@@ -56,8 +56,12 @@ function setup(){
   ball.x = width/2-100;
   ball.y = height/2;
   ball.fill = "white";
-  ball.velocity.x = 2;
-  let block = new Sprite(width/2,height/2,20,20);
+  ball.velocity.x = 10;
+  for(let i = 0; i< 10; i++){
+    let block = new Sprite(width/2,height/2+10,20,20); 
+
+
+  }
 
 }
 
