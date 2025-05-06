@@ -50,19 +50,21 @@
 //   spr.position.y = mouseY;
 // }
 function setup(){
+
+
   new Canvas("2:1");
   let ball = new Sprite(); 
   ball.diameter = 20;
   ball.x = width/2-100;
   ball.y = height/2;
   ball.fill = "white";
-  ball.velocity.x = 10;
+  ball.velocity.x = 2;
   for(let i = 0; i< 10; i++){
     let block = new Sprite(width/2+random(-5,5),height/2+random(-5,5),20,20); 
 
 
   }
-
+ 
 }
 
 function draw(){
@@ -70,5 +72,5 @@ function draw(){
 }
 
 function mousePressed(){
-  ball.moveTo(mouse.x,mouse.y,8);
+  ball.moveTo(mouseX,mouseY,8);
 }
