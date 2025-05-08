@@ -54,6 +54,7 @@ function setup(){
 
   new Canvas("2:1");
   let ball = new Sprite(); 
+  console.log(0;
   ball.diameter = 20;
   ball.x = width/2-100;
   ball.y = height/2;
@@ -72,5 +73,6 @@ function draw(){
 }
 
 function mousePressed(){
-  ball.moveTo(mouseX,mouseY,8);
+  ball.moveTo(mouseX,mouseY, 1);
+  console.log("working");
 }
