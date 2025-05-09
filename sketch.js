@@ -8,7 +8,8 @@ function setup(){
 
   new Canvas("2:1");
   let ball = new Sprite(); 
-
+  // let box = new Sprite();
+  box.x = width/3+50;
   console.log(0);
   ball.diameter = 20;
   ball.x = width/2-100;
@@ -32,7 +33,7 @@ function draw(){
 }
 
 function mousePressed(){
-  ball.moveTo(mouseX,mouseY, 1);
+  ball.moveTo(mouseX,mouseY, 8);
 
   console.log("working");
 }
