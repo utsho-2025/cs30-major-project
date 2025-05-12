@@ -23,9 +23,10 @@ function setup(){
 
 
   }
-  wall = new Sprite();
-  // wall.rect(width, height, 20, height);
+  wall = new Sprite(width,height,20,width+900);
+  wall.rotation = 270;
 
+  wall.collider = 'static';
   console.log("working");
  
 }
