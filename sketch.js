@@ -2,12 +2,13 @@
 
 
 let ball;
-
+let wall;
+// let ball = new Sprite(); 
 function setup(){
 
 
   new Canvas("2:1");
-  let ball = new Sprite(); 
+  ball = new Sprite(); 
   // let box = new Sprite();
   box.x = width/3+50;
   console.log(0);
@@ -20,8 +21,10 @@ function setup(){
     let block = new Sprite(width/2+random(-5,5),height/2+random(-5,5),20,20); 
 
 
-  }
 
+  }
+  wall = new Sprite();
+  // wall.rect(width, height, 20, height);
 
   console.log("working");
  
