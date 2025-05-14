@@ -1,6 +1,10 @@
 
-
-
+let map;
+let ground;
+let brick;
+let questionBlock;
+let pipe;
+let x;
 let ball;
 let wall;
 // let ball = new Sprite(); 
@@ -17,13 +21,13 @@ function setup(){
   ball.y = height/2;
   ball.fill = "white";
   ball.velocity.x = 2;
-  for(let i = 0; i< 10; i++){
+  for(let i = 0; i< 50; i++){
     let block = new Sprite(width/2+random(-5,5),height/2+random(-5,5),20,20); 
-
 
 
   }
   wall = new Sprite(width,height,20,width+900);
+  wall.fill = "green";
   wall.rotation = 270;
 
   wall.collider = 'static';
@@ -32,7 +36,7 @@ function setup(){
 }
 
 function draw(){
-  background(220);
+  background(92,148,252);
 
 }
 
