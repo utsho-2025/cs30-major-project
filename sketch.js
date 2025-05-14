@@ -4,7 +4,7 @@ let ground;
 let brick;
 let questionBlock;
 let pipe;
-let x;
+
 let ball;
 let wall;
 // let ball = new Sprite(); 
