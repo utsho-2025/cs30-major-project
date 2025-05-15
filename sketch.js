@@ -21,6 +21,8 @@ function setup(){
   ball.y = height/2;
   ball.fill = "white";
   ball.velocity.x = 2;
+  ball.gravity = -5;
+
   for(let i = 0; i< 50; i++){
     let block = new Sprite(width/2+random(-5,5),height/2+random(-5,5),20,20); 
 
@@ -34,7 +36,9 @@ function setup(){
   console.log("working");
  
 }
+function preload(){
 
+}
 function draw(){
   background(92,148,252);
 
