@@ -1,10 +1,10 @@
 
-let map;
-let ground;
-let brick;
-let questionBlock;
-let pipe;
-
+let mapImg;
+let groundImg;
+let brickImg;
+let questionBlockImg;
+let pipeImg;
+let marioImg;
 let ball;
 let wall;
 // let ball = new Sprite(); 
@@ -37,6 +37,10 @@ function setup(){
  
 }
 function preload(){
+  marioImg = loadImage("Mario.png");
+  brickImg = loadImage("Brick.png");
+  questionBlockImg = loadImage("QuestionBlock.png");
+  
 
 }
 function draw(){
