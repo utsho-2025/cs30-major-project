@@ -12,7 +12,11 @@ let wall;
 // let ball = new Sprite(); 
 function setup(){
   world.gravity.y = 40;
-  new Canvas(windowWidth,windowHeight/2)
+  new Canvas(windowWidth,windowHeight/2);
+  mario = new Sprite();
+  mario.addAni(marioAni);
+  // ground  = new Sprite(width/2, );
+  // ground.collider = "s";
 
 
   // new Canvas("2:1");
@@ -32,19 +36,20 @@ function setup(){
 
 
   // }
-  // wall = new Sprite(width,height,20,width+900);
-  // wall.fill = "green";
-  // wall.rotation = 270;
+  wall = new Sprite(width,height,20,width+900);
+  wall.fill = "green";
+  wall.rotation = 270;
 
-  // wall.collider = 'static';
-  // console.log("working");
+  wall.collider = 'static';
+  console.log("working");
  
 }
 function preload(){
+  marioAni = loadAnimation("Mario.png");
   marioImg = loadImage("Mario.png");
   groundImg = loadImage("Ground.png");
   questionBlockImg = loadImage("QuestionBlock.png");
-  pipeImg = loadImage("Pipe.png")
+  pipeImg = loadImage("Pipe.png");
   
   
 
