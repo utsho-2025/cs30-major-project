@@ -7,7 +7,7 @@ let pipeImg;
 let marioImg;
 let ball;
 let wall;
-
+let tileSize = 16;
 
 // let ball = new Sprite(); 
 function setup(){
@@ -15,9 +15,64 @@ function setup(){
   new Canvas(windowWidth,windowHeight/2);
   mario = new Sprite();
   mario.addAni(marioAni);
-  // ground  = new Sprite(width/2, );
-  // ground.collider = "s";
+  mario.scale = tileSize/marioImg.width*2;
 
+  ground  = new Group();
+  ground.collider = "s";
+  ground.image = groundImg;
+  ground.scale = tileSize/groundImg.width;
+  ground.tile = "=";
+  ground.w = tileSize;
+  ground.h = tileSize;
+
+  brick  = new Group();
+  brick.collider = "s";
+  brick.image = brickImg;
+  brick.tile = "b";
+  brick.scale = tileSize/brickImg.width*2;
+  brick.w = tileSize;
+  brick.h = tileSize;
+
+  questionB  = new Group();
+  questionB.collider = "s";
+  questionB.image = questionBlockImg;
+  questionB.scale = tileSize/questionBlockImg.width;
+  questionB.tile = "?";
+  questionB.w = tileSize;
+  questionB.h = tileSize;
+
+  pipe  = new Group();
+  pipe.collider = "s";
+  pipe.image = pipeImg;
+  pipe.scale = tileSize/pipeImg.width*2;
+  pipe.tile = "p";
+  pipe.w = tileSize;
+  pipe.h = tileSize;
+
+  new Tiles(
+    [
+      '.......................................................................................................................................................................................................................................................................................',
+      '...................................................................................bbbbbbbb...bbb?.......................?.............bbb.....b??b.....................................................................................................................................',
+      '.......................?.............................................................................................................................................................................................bb.................................................................',
+      '....................................................................................................................................................................................................................bbb.................................................................',
+      '...................................................................................................................................................................................................................bbbb.................................................................',
+      '................?....b?b?b...................................................b?b.................?.....b?.....bb......?..?..?......b............bb................................................................bbbbb.................bb..............................................',
+      '...............................................p.........p.............................................................................................b..b............bb..b...................................bbbbbb................bbbb.............................................',
+
+      '',
+      '',
+
+
+    ],
+    0,
+    16,
+    tileSize,
+    tileSize-1,
+
+
+
+
+  )
 
   // new Canvas("2:1");
   // ball = new Sprite(); 
@@ -35,7 +90,7 @@ function setup(){
   //   let block = new Sprite(width/2+random(-5,5),height/2+random(-5,5),20,20); 
 
 
-  // }
+  // // }
   wall = new Sprite(width,height,20,width+900);
   wall.fill = "green";
   wall.rotation = 270;
@@ -45,11 +100,12 @@ function setup(){
  
 }
 function preload(){
-  marioAni = loadAnimation("Mario.png");
-  marioImg = loadImage("Mario.png");
-  groundImg = loadImage("Ground.png");
-  questionBlockImg = loadImage("QuestionBlock.png");
-  pipeImg = loadImage("Pipe.png");
+  marioAni = loadAnimation("Assets/Mario.png");
+  marioImg = loadImage("Assets/Mario.png");
+  groundImg = loadImage("Assets/Ground.png");
+  questionBlockImg = loadImage("Assets/QuestionBlock.png");
+  pipeImg = loadImage("Assets/Pipe.png");
+  brickImg = loadImage("Assets/brick.png")
   
   
 
