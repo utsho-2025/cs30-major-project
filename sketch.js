@@ -115,10 +115,11 @@ function preload(){
 }
 function draw(){
   background(92,148,252);
-  // if (kb.presses('d')) {
-  //   mario.x += 16;
+  collisionCheckerGround();
+  if (kb.presses('d')) {
+    mario.x += 16;
 
-  // }  
+  }  
   // if (kb.presses('space')) {
   //   mario.y += 16;
 
@@ -130,6 +131,24 @@ function draw(){
   }
 
   camera.x = mario.x;
-  camera.y = mario.y;
+  camera.y = height/2;
 }
 
+function collisionCheckerGround(){
+  if (mario.collide(ground)){
+    mario.y = Math.round(mario.y);
+
+  }
+  if (mario.collide(brick)){
+    mario.y = Math.round(mario.y);
+    mario.x = Math.round(mario.x);
+
+  }  
+  if (mario.collide(questionB)){
+    mario.y = Math.round(mario.y);
+    mario.x = Math.round(mario.x);
+
+  }
+  // if (mario.collide())
+
+}
