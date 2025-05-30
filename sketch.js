@@ -119,15 +119,13 @@ function preload(){
 function draw(){
   background(92,148,252);
   collisionCheckerGround();
-  if (kb.presses('d')) {
-    mario.x += mSpeed;
+
+  mover();
+  if (kb.presses('space')) {
+    world.gravity = 9;
+    mario.y -= 16;
 
   }  
-  mover();
-  // if (kb.presses('space')) {
-  //   mario.y += 16;
-
-  // }  
   if (mouse.presses()){
     mario.y = mouse.y;
     mario.x = mouse.x;
