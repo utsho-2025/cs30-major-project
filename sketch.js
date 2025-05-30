@@ -8,6 +8,8 @@ let marioImg;
 let ball;
 let wall;
 let tileSize = 16;
+let mSpeed = 16;
+let presserR = false;
 
 function setup(){
   world.gravity.y = 40;
@@ -113,13 +115,15 @@ function preload(){
   
 
 }
+
 function draw(){
   background(92,148,252);
   collisionCheckerGround();
   if (kb.presses('d')) {
-    mario.x += 16;
+    mario.x += mSpeed;
 
   }  
+  mover();
   // if (kb.presses('space')) {
   //   mario.y += 16;
 
@@ -152,3 +156,17 @@ function collisionCheckerGround(){
   // if (mario.collide())
 
 }
+function mover(){
+  if (keyIsDown(LEFT_ARROW) === true) {
+    mario.x -= 8;
+  }
+  if (keyIsDown(RIGHT_ARROW) === true) {
+    mario.x += 8;
+  }
+  // if (keyIsDown(UP_ARROW) === true) {
+  //   mario.x -= 1;
+  // }
+  // if (keyIsDown(DOWN_ARROW) === true) {
+  //   mario.x -= 1;
+  // }
+} 
