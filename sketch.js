@@ -8,6 +8,7 @@ let marioImg;
 let ball;
 let wall;
 let tileSize = 16;
+
 let mSpeed = 16;
 let presserR = false;
 
@@ -19,6 +20,11 @@ function setup(){
   mario.scale = tileSize/marioImg.width*2;
   mario.rotationLock = true;
   console.log(marioImg.width);
+  mario.friction = 1;
+  // mario.velocity.y += mario.gravity; 
+
+
+
 
   ground  = new Group();
   ground.collider = "s";
@@ -121,11 +127,8 @@ function draw(){
   collisionCheckerGround();
 
   mover();
-  if (kb.presses('space')) {
-    world.gravity = 9;
-    mario.y -= 16;
 
-  }  
+
   if (mouse.presses()){
     mario.y = mouse.y;
     mario.x = mouse.x;
@@ -161,6 +164,12 @@ function mover(){
   if (keyIsDown(RIGHT_ARROW) === true) {
     mario.x += 8;
   }
+  if (kb.presses('space')&&mario.collide(ground)||mario.collide(brick)||mario.collide(questionB)){
+    mario.velocity.y -= 9;
+     
+    // world.gravity =  9; 
+
+  }  
   // if (keyIsDown(UP_ARROW) === true) {
   //   mario.x -= 1;
   // }
