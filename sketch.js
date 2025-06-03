@@ -111,7 +111,7 @@ function setup(){
 
 }
 function preload(){
-  marioAni = loadAnimation("Assets/Mario.png");
+  marioAni = loadAnimation("Assets/image.png");
   marioImg = loadImage("Assets/Mario.png");
   groundImg = loadImage("Assets/Ground.png");
   questionBlockImg = loadImage("Assets/QuestionBlock.png");
@@ -172,9 +172,9 @@ function mover(){
   if (keyIsDown(RIGHT_ARROW) === true) {
     mario.x += 8;
   }
-  if (kb.presses('space')&&mario.collide(ground)||mario.collide(brick)||mario.collide(questionB)){
+  if (kb.presses('space')&&mario.collide(ground)||kb.presses('space')&&mario.collide(brick)||kb.presses('space')&&mario.collide(questionB)){
     mario.velocity.y -= 19;
-     
+    mario,gravity = 9;
     // world.gravity =  9; 
 
   }  
