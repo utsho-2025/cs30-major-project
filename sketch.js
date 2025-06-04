@@ -68,8 +68,8 @@ function setup(){
   pipe.image = pipeImg;
   pipe.scale = tileSize/pipeImg.width*2;
   pipe.tile = "p";
-  pipe.w = tileSize;
-  pipe.h = tileSize;
+  pipe.w = tileSize+16;
+  pipe.h = tileSize+16;
 
   new Tiles(
     [
@@ -147,11 +147,11 @@ function draw(){
   //   mario.y += 16;
 
   // }  
-  // if (mouse.presses()){
-  //   mario.y = mouse.y;
-  //   mario.x = mouse.x;
+  if (mouse.presses()){
+    mario.y = mouse.y;
+    mario.x = mouse.x;
 
-  // }
+  }
 
   camera.x = mario.x;
   // camera.y = mario.y;
@@ -176,22 +176,45 @@ function collisionCheckerGround(){
     mario.x = Math.round(mario.x);
 
   }
+  if (mario.collide(pipe)){
+    mario.y = Math.round(mario.y);
+    mario.x = Math.round(mario.x);
+
+  }
   // if (mario.collide())
 
 }
 function mover(){
   if (keyIsDown(LEFT_ARROW) === true) {
-    mario.vel.x = -8;
-    mario.ani = 'run'
-    mario.mirror.x = false;
+    mario.x -= 8;
+    mario.ani = 'run';
+    mario.mirror.x = true;
   }
-  else if (keyIsDown(RIGHT_ARROW) === true) {
-    mario.vel.x = 8;
+  if (keyIsDown(LEFT_ARROW) === true && kb.presses('space')) {
+    mario.x -= 8;
+    mario.velocity.y -= 9;
+    mario.ani = 'run';
+    mario.mirror.x = true;
+  }
+  
+  else if (keyIsDown(RIGHT_ARROW)&& kb.presses('space')) {
+    mario.x += 8;
+    mario.velocity.y -= 9;
     mario.ani = 'run';
     mario.mirror.x = false;
   }
+  else if (keyIsDown(RIGHT_ARROW) === true) {
+    mario.x += 8;
+    mario.ani = 'run';
+    mario.mirror.x = false;
+  }
+  else if(kb.presses('space')){
+    mario.velocity.y -= 9;
+    // mario.gravity = 9;
+  }
+  //   // world.gravity =  9; 
   else{
-    mario.ani = 'stand'
+    mario.ani = 'stand';
   }
   // if (kb.presses('space')&&mario.collide(ground)||kb.presses('space')&&mario.collide(brick)||kb.presses('space')&&mario.collide(questionB)){
   //   mario.velocity.y -= 9;
