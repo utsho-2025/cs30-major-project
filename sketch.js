@@ -13,14 +13,27 @@ let mSpeed = 16;
 let presserR = false;
 
 function setup(){
-  world.gravity.y = 40;
+  world.gravity.y = 20;
   new Canvas(windowWidth,windowHeight/2);
-  mario = new Sprite();
-  mario.addAni(marioAni);
+
+
+
+  mario = new Sprite(100,150);
+  mario.spriteSheet = marioSheet;
+  mario.anis.frameDelay = 8;
+  mario.addAnis({
+    run: {row:0, frames:3},
+    stand: {row:0, frames:1},
+  })
+  // mario.changeAni("stand")
   mario.scale = tileSize/marioImg.width*2;
   mario.rotationLock = true;
   console.log(marioImg.width);
   mario.friction = 1;
+  mario.scale = tileSize / 180 * 2;
+  // mario.collider = 'dynamic';
+  mario.h = 50;
+  mario.w = 12;
   // mario.velocity.y += mario.gravity; 
 
 
@@ -111,12 +124,13 @@ function setup(){
 
 }
 function preload(){
-  marioAni = loadAnimation("Assets/image.png");
+  marioAni = loadAnimation("Assets/Mario.png");
   marioImg = loadImage("Assets/Mario.png");
   groundImg = loadImage("Assets/Ground.png");
   questionBlockImg = loadImage("Assets/QuestionBlock.png");
   pipeImg = loadImage("Assets/Pipe.png");
   brickImg = loadImage("Assets/brick.png");
+  marioSheet = loadImage("Assets/img1.png")
   
   
 
@@ -140,7 +154,7 @@ function draw(){
   // }
 
   camera.x = mario.x;
-  camera.y = mario.y;
+  // camera.y = mario.y;
   // if (kb.presses('d') ){
   //   camera.x +=50;  
 
@@ -167,17 +181,24 @@ function collisionCheckerGround(){
 }
 function mover(){
   if (keyIsDown(LEFT_ARROW) === true) {
-    mario.x -= 8;
+    mario.vel.x = -8;
+    mario.ani = 'run'
+    mario.mirror.x = false;
   }
-  if (keyIsDown(RIGHT_ARROW) === true) {
-    mario.x += 8;
+  else if (keyIsDown(RIGHT_ARROW) === true) {
+    mario.vel.x = 8;
+    mario.ani = 'run';
+    mario.mirror.x = false;
   }
-  if (kb.presses('space')&&mario.collide(ground)||kb.presses('space')&&mario.collide(brick)||kb.presses('space')&&mario.collide(questionB)){
-    mario.velocity.y -= 19;
-    mario,gravity = 9;
-    // world.gravity =  9; 
+  else{
+    mario.ani = 'stand'
+  }
+  // if (kb.presses('space')&&mario.collide(ground)||kb.presses('space')&&mario.collide(brick)||kb.presses('space')&&mario.collide(questionB)){
+  //   mario.velocity.y -= 9;
+  //   mario.gravity = 9;
+  //   // world.gravity =  9; 
 
-  }  
+  // }  
   // if (keyIsDown(UP_ARROW) === true) {
   //   mario.x -= 1;
   // }
