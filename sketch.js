@@ -13,7 +13,7 @@ let mSpeed = 16;
 let presserR = false;
 
 function setup(){
-  world.gravity.y = 10;
+  world.gravity.y = 30;
   new Canvas(windowWidth,windowHeight/2);
   
 
@@ -205,7 +205,7 @@ function mover(){
   }
   if (kb.pressing('space')&&(mario.colliding(ground)||mario.colliding(brick)||(mario.colliding(pipe))||(mario.colliding(questionB)))){
     console.log("jump");
-    mario.vel.y = -5;
+    mario.vel.y = -15;
   }
 }
   // if (keyIsDown(LEFT_ARROW)) {
