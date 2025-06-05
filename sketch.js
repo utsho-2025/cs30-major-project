@@ -13,12 +13,18 @@ let mSpeed = 16;
 let presserR = false;
 
 function setup(){
-  world.gravity.y = 20;
+  world.gravity.y = 10;
   new Canvas(windowWidth,windowHeight/2);
+  
 
 
 
   mario = new Sprite(100,150);
+  mario.debug = true;
+  mario.bbox = 'rect'
+  // mario.friction = 0.05;
+  // mario.bounciness = 0;
+  // mario.mass = 10;
   mario.spriteSheet = marioSheet;
   mario.anis.frameDelay = 8;
   mario.addAnis({
@@ -33,14 +39,19 @@ function setup(){
   mario.scale = tileSize / 180 * 2;
   // mario.collider = 'dynamic';
   mario.h = 50;
-  mario.w = 12;
+  mario.w = 25;
+  mario.collider = 'DYN'
+
   // mario.velocity.y += mario.gravity; 
 
 
 
 
   ground  = new Group();
+  ground.debug = true;
+
   ground.collider = "s";
+  ground.bbox = 'rect'
   ground.image = groundImg;
   ground.scale = tileSize/groundImg.width*1;
   ground.tile = "=";
@@ -48,6 +59,8 @@ function setup(){
   ground.h = tileSize;
 
   brick  = new Group();
+  brick.debug = true;
+  brick.bbox = 'rect'
   brick.collider = "s";
   brick.image = brickImg;
   brick.tile = "b";
@@ -56,7 +69,9 @@ function setup(){
   brick.h = tileSize;
 
   questionB  = new Group();
+  questionB.debug = true;
   questionB.collider = "s";
+  questionB.bbox = 'rect';
   questionB.image = questionBlockImg;
   questionB.scale = tileSize/questionBlockImg.width;
   questionB.tile = "?";
@@ -64,6 +79,8 @@ function setup(){
   questionB.h = tileSize;
 
   pipe  = new Group();
+  pipe.debug = true;
+  pipe.bbox = 'rect'
   pipe.collider = "s";
   pipe.image = pipeImg;
   pipe.scale = tileSize/pipeImg.width*2;
@@ -110,7 +127,7 @@ function setup(){
     0,
     16,
     tileSize,
-    tileSize-1,
+    tileSize,
 
 
 
@@ -152,6 +169,7 @@ function draw(){
     mario.x = mouse.x;
 
   }
+  collisionCheckerGround();
 
   camera.x = mario.x;
   // camera.y = mario.y;
@@ -162,59 +180,63 @@ function draw(){
 }
 
 function collisionCheckerGround(){
-  if (mario.collide(ground)){
-    mario.y = Math.round(mario.y);
-
-  }
-  if (mario.collide(brick)){
-    mario.y = Math.round(mario.y);
-    mario.x = Math.round(mario.x);
-
-  }  
-  if (mario.collide(questionB)){
-    mario.y = Math.round(mario.y);
-    mario.x = Math.round(mario.x);
-
-  }
-  if (mario.collide(pipe)){
-    mario.y = Math.round(mario.y);
-    mario.x = Math.round(mario.x);
-
-  }
-  // if (mario.collide())
-
+  mario.collide(ground);
+  mario.collide(questionB);
+  mario.collide(brick);
+  mario.collide(pipe);
 }
+
 function mover(){
-  if (keyIsDown(LEFT_ARROW) === true) {
-    mario.x -= 8;
-    mario.ani = 'run';
+  
+
+  if (keyIsDown(LEFT_ARROW)) {
+    // mario.x -= 8;
+    mario.vel.x = -8;
+    // mario.ani = 'run';
+    mario.changeAni('run');
+
     mario.mirror.x = true;
   }
-  if (keyIsDown(LEFT_ARROW) === true && kb.presses('space')) {
-    mario.x -= 8;
+  if (keyIsDown(LEFT_ARROW)  && kb.presses('space')) {
+    mario.vel.x = -8;
     mario.velocity.y -= 9;
-    mario.ani = 'run';
+    // mario.ani = 'run';
+    mario.changeAni('run');
+
     mario.mirror.x = true;
   }
   
   else if (keyIsDown(RIGHT_ARROW)&& kb.presses('space')) {
-    mario.x += 8;
+    mario.vel.x = 8;
     mario.velocity.y -= 9;
-    mario.ani = 'run';
+    // mario.ani = 'run';
+    mario.changeAni('run');
+
     mario.mirror.x = false;
   }
+  
+  else if ((!keyIsDown(RIGHT_ARROW)&& !keyIsDown(LEFT_ARROW))) {
+    mario.vel.x = 0;
+    // mario.velocity.y -= 9;
+    mario.ani = 'stand';
+    
+}
   else if (keyIsDown(RIGHT_ARROW) === true) {
-    mario.x += 8;
-    mario.ani = 'run';
+    mario.vel.x = 8;
+     
+    mario.changeAni('run');
     mario.mirror.x = false;
   }
-  else if(kb.presses('space')){
-    mario.velocity.y -= 9;
+ if(kb.presses('space')&&(!keyIsDown(RIGHT_ARROW)&& !keyIsDown(LEFT_ARROW))){
+    mario.velocity.y -= 4.5 ;
     // mario.gravity = 9;
   }
   //   // world.gravity =  9; 
-  else{
-    mario.ani = 'stand';
+
+  // dont touch this whatever happens
+  if (mario.vel.x ===0&&mario.vel.y===0){
+    mario.ani = 'stand'
+
   }
   // if (kb.presses('space')&&mario.collide(ground)||kb.presses('space')&&mario.collide(brick)||kb.presses('space')&&mario.collide(questionB)){
   //   mario.velocity.y -= 9;
@@ -228,4 +250,5 @@ function mover(){
   // if (keyIsDown(DOWN_ARROW) === true) {
   //   mario.x -= 1;
   // }
+
 }  
