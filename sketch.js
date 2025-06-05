@@ -199,7 +199,7 @@ function mover(){
   }
   if (keyIsDown(LEFT_ARROW)  && kb.presses('space')) {
     mario.vel.x = -8;
-    mario.velocity.y -= 9;
+    mario.velocity.y -= 4;
     // mario.ani = 'run';
     mario.changeAni('run');
 
@@ -208,7 +208,7 @@ function mover(){
   
   else if (keyIsDown(RIGHT_ARROW)&& kb.presses('space')) {
     mario.vel.x = 8;
-    mario.velocity.y -= 9;
+    mario.velocity.y -= 4;
     // mario.ani = 'run';
     mario.changeAni('run');
 
@@ -228,7 +228,7 @@ function mover(){
     mario.mirror.x = false;
   }
  if(kb.presses('space')&&(!keyIsDown(RIGHT_ARROW)&& !keyIsDown(LEFT_ARROW))){
-    mario.velocity.y -= 4.5 ;
+    mario.velocity.y -= 5 ;
     // mario.gravity = 9;
   }
   //   // world.gravity =  9; 
