@@ -7,6 +7,7 @@ let pipeImg;
 let marioImg;
 let ball;
 let pipeMDImg;
+let goombaImg;
 let wall;
 let tileSize = 16;
 
@@ -21,8 +22,8 @@ function preload(){
   pipeImg = loadImage("Assets/Pipe.png");
   brickImg = loadImage("Assets/brick.png");
   marioSheet = loadImage("Assets/img1.png");
-  pipeMDImg = loadImage("Assets/pipeM.png")
-  
+  pipeMDImg = loadImage("Assets/pipeM.png");
+  goombaImg = loadImage("Assets/Goomba.png");
   
 
 }
@@ -72,7 +73,7 @@ function setup(){
   ground.scale = tileSize/groundImg.width*1;
   ground.tile = "=";
   ground.w = tileSize;
-  ground.h = tileSize;
+  ground.h = tileSize+20;
 
   brick  = new Group();
   brick.debug = true;
@@ -113,6 +114,17 @@ function setup(){
   pipeMD.w = tileSize+16;
   pipeMD.h = tileSize+16;
 
+  goomba =new Group();
+  goomba.debug = true;
+  goomba.rotationLock = true;
+  goomba.collider = 'd';
+  goomba.tile = "g";
+  goomba.image = goombaImg;
+  goomba.h = tileSize+1500;
+  goomba.w = tileSize+1000;  
+  goomba.scale = tileSize/goombaImg.height;
+
+
   new Tiles(
     [
       '.......................................................................................................................................................................................................................................................................................',
@@ -132,7 +144,7 @@ function setup(){
       '...............................................................................................................................................b..b............b..b...................................bbbbbb................bbbb.............................................',
       '..............................................................................................................................................bb..bb..........bb..bb..............bb?b...............bbbbbbb..............bbbbbb............................................',
       '...........................p..................................................................................................................bbb..bbb........bbb..bbb.......p...................p.bbbbbbbb.................bbbbbb............................................',
-      '...........................|.................p.........p................................................................................bbbb..bbbb......bbbb..bbbb............bb..b..................................bbbbbbb................bbbb.............................................',
+      '...........................|.....g...........p.........p................................................................................bbbb..bbbb......bbbb..bbbb............bb..b..................................bbbbbbb................bbbb.............................................',
       '...........................|..........p......|.........|...................................................................................bbbbb..bbbbb....bbbbb..bbbbb......p...................pbbbbbbbbb.........b.....bbbbbb............................................',
       '=====================================================================..===============...=================================================================================..===========================================================================================================',
       '======================================================================..===============...=================================================================================..===========================================================================================================',
@@ -197,6 +209,8 @@ function collisionCheckerGround(){
   mario.collide(questionB);
   mario.collide(brick);
   mario.collide(pipe);
+  mario.collide(goomba);
+  goomba.collide(ground);
 }
 
 function mover(){
@@ -218,69 +232,69 @@ function mover(){
   }
   if (kb.pressing('space')&&(mario.colliding(ground)||mario.colliding(brick)||(mario.colliding(pipe))||(mario.colliding(questionB)))){
     console.log("jump");
-    mario.vel.y = -15;
+    mario.vel.y = -7;
   }
 }
-  // if (keyIsDown(LEFT_ARROW)) {
-  //   // mario.x -= 8;
-  //   mario.vel.x = -8;
-  //   // mario.ani = 'run';
-  //   mario.changeAni('run');
+// if (keyIsDown(LEFT_ARROW)) {
+//   // mario.x -= 8;
+//   mario.vel.x = -8;
+//   // mario.ani = 'run';
+//   mario.changeAni('run');
 
-  //   mario.mirror.x = true;
-  // }
-  // // if (keyIsDown(LEFT_ARROW) && kb.presses('space')&&mario.colliding(ground)||mario.colliding(brick)||mario.colliding(pipe)||mario.colliding(questionB)) {
-  // //   mario.vel.x = -8;
-  // //   mario.velocity.y -= 4;
-  // //   // mario.ani = 'run';
-  // //   mario.changeAni('run');
+//   mario.mirror.x = true;
+// }
+// // if (keyIsDown(LEFT_ARROW) && kb.presses('space')&&mario.colliding(ground)||mario.colliding(brick)||mario.colliding(pipe)||mario.colliding(questionB)) {
+// //   mario.vel.x = -8;
+// //   mario.velocity.y -= 4;
+// //   // mario.ani = 'run';
+// //   mario.changeAni('run');
 
-  // //   mario.mirror.x = true;
-  // // }
+// //   mario.mirror.x = true;
+// // }
+
+// // else if (keyIsDown(RIGHT_ARROW)&& kb.presses('space')&&mario.colliding(ground)||mario.colliding(brick)||mario.colliding(pipe)||mario.colliding(questionB)) {
+// //   mario.vel.x = 8;
+// //   mario.velocity.y -= 4;
+// //   // mario.ani = 'run';
+// //   mario.changeAni('run');
+
+// //   mario.mirror.x = false;
+// // }
+
+// else if (!keyIsDown(RIGHT_ARROW)&& !keyIsDown(LEFT_ARROW)) {
+//   mario.vel.x = 0;
+//   // mario.velocity.y -= 9;
+//   mario.ani = 'stand';
   
-  // // else if (keyIsDown(RIGHT_ARROW)&& kb.presses('space')&&mario.colliding(ground)||mario.colliding(brick)||mario.colliding(pipe)||mario.colliding(questionB)) {
-  // //   mario.vel.x = 8;
-  // //   mario.velocity.y -= 4;
-  // //   // mario.ani = 'run';
-  // //   mario.changeAni('run');
+// }
 
-  // //   mario.mirror.x = false;
-  // // }
-  
-  // else if (!keyIsDown(RIGHT_ARROW)&& !keyIsDown(LEFT_ARROW)) {
-  //   mario.vel.x = 0;
-  //   // mario.velocity.y -= 9;
-  //   mario.ani = 'stand';
+
+
+// else if (keyIsDown(RIGHT_ARROW) === true) {
+//   mario.vel.x = 8;
     
-  // }
+//   mario.changeAni('run');
+//   mario.mirror.x = false;
+// }
+// if(kb.presses('space') && (mario.colliding(ground))||(mario.colliding(brick))){
+//   mario.velocity.y -= 5 ;
+//   // mario.gravity = 9;
 
+// &&(!keyIsDown(RIGHT_ARROW)&& !keyIsDown(LEFT_ARROW)
+//   // world.gravity =  9; 
 
+// dont touch this whatever happens
 
-  // else if (keyIsDown(RIGHT_ARROW) === true) {
-  //   mario.vel.x = 8;
-     
-  //   mario.changeAni('run');
-  //   mario.mirror.x = false;
-  // }
-  // if(kb.presses('space') && (mario.colliding(ground))||(mario.colliding(brick))){
-  //   mario.velocity.y -= 5 ;
-  //   // mario.gravity = 9;
-  
-  // &&(!keyIsDown(RIGHT_ARROW)&& !keyIsDown(LEFT_ARROW)
-  //   // world.gravity =  9; 
+// if (kb.presses('space')&&mario.collide(ground)||kb.presses('space')&&mario.collide(brick)||kb.presses('space')&&mario.collide(questionB)){
+//   mario.velocity.y -= 9;
+//   mario.gravity = 9;
+//   // world.gravity =  9; 
 
-  // dont touch this whatever happens
-
-  // if (kb.presses('space')&&mario.collide(ground)||kb.presses('space')&&mario.collide(brick)||kb.presses('space')&&mario.collide(questionB)){
-  //   mario.velocity.y -= 9;
-  //   mario.gravity = 9;
-  //   // world.gravity =  9; 
-
-  // }  
-  // if (keyIsDown(UP_ARROW) === true) {
-  //   mario.x -= 1;
-  // }
-  // if (keyIsDown(DOWN_ARROW) === true) {
-  //   mario.x -= 1;
-  // }
+// }  
+// if (keyIsDown(UP_ARROW) === true) {
+//   mario.x -= 1;
+// }
+// if (keyIsDown(DOWN_ARROW) === true) {
+//   mario.x -= 1;
+// }
 
