@@ -12,6 +12,8 @@ let tileSize = 16;
 
 let mSpeed = 16;
 let presserR = false;
+let tpSensor;
+let btmSensor;
 
 function preload(){
   marioAni = loadAnimation("Assets/Mario.png");
@@ -22,6 +24,7 @@ function preload(){
   brickImg = loadImage("Assets/brick.png");
   marioSheet = loadImage("Assets/img1.png");
   pipeMDImg = loadImage("Assets/pipeM.png")
+  goombaImg = loadImage("Assets/Goomba.png");
   
   
 
@@ -29,11 +32,12 @@ function preload(){
 
 
 function setup(){
-  world.gravity.y = 30;
+  frameRate(60);
+  world.gravity.y = 40;
   new Canvas(windowWidth,windowHeight/2);
   
 
-
+  walkable = new Group();
 
   mario = new Sprite(100,150);
   mario.debug = true;
@@ -54,7 +58,7 @@ function setup(){
   mario.friction = 1;
   mario.scale = tileSize / 180 * 2;
   // mario.collider = 'dynamic';
-  mario.h = 50;
+  mario.h = 40;
   mario.w = 25;
   mario.collider = 'DYN';
 
@@ -63,7 +67,7 @@ function setup(){
 
 
 
-  ground  = new Group();
+  ground  = new walkable.Group();
   ground.debug = true;
 
   ground.collider = "s";
@@ -72,9 +76,9 @@ function setup(){
   ground.scale = tileSize/groundImg.width*1;
   ground.tile = "=";
   ground.w = tileSize;
-  ground.h = tileSize+60;
+  ground.h = tileSize+160;
 
-  brick  = new Group();
+  brick  = new walkable.Group();
   brick.debug = true;
   brick.bbox = 'rect';
   brick.collider = "s";
@@ -94,7 +98,7 @@ function setup(){
   questionB.w = tileSize;
   questionB.h = tileSize;
 
-  pipe  = new Group();
+  pipe  = new walkable.Group();
   pipe.debug = true;
   // pipe.bbox = 'rect';
   pipe.collider = "s";
@@ -110,8 +114,35 @@ function setup(){
   pipeMD.image = pipeMDImg;
   pipeMD.scale = tileSize/pipeMDImg.height;
   pipeMD.tile = "|";
-  pipeMD.w = tileSize+16;
-  pipeMD.h = tileSize+16;
+  pipeMD.w = tileSize+190;
+  pipeMD.h = tileSize+190;
+
+  goomba =new Group();
+  goomba.debug = true;
+  goomba.rotationLock = true;
+  goomba.collider = 'dynamic';
+  goomba.tile = "g";
+  goomba.image = goombaImg;
+  goomba.h = tileSize+1000;
+  goomba.w = tileSize+1200;  
+  goomba.scale = tileSize/goombaImg.height*1.23;
+  goomba.moving= -2;
+
+
+  tpSensor = new Sprite(mario.x, mario.y-mario.h/2);
+  btmSensor = new Sprite(mario.x-10, mario.y+mario.h/2)
+  tpSensor.w = mario.w/2;
+  tpSensor.h = 2;
+  btmSensor.w = mario.w/2;
+  btmSensor.h = 2;
+  tpSensor.visible = false;
+  btmSensor.visible = false;
+  
+  let btmJoint = new GlueJoint(mario,btmSensor); 
+  let tpJoint = new GlueJoint(mario,tpSensor);
+  
+  tpJoint.visible = false;
+  btmJoint.visible = false;
 
   new Tiles(
     [
@@ -132,8 +163,8 @@ function setup(){
       '...............................................................................................................................................b..b............b..b...................................bbbbbb................bbbb.............................................',
       '..............................................................................................................................................bb..bb..........bb..bb..............bb?b...............bbbbbbb..............bbbbbb............................................',
       '...........................p..................................................................................................................bbb..bbb........bbb..bbb.......p...................p.bbbbbbbb.................bbbbbb............................................',
-      '...........................|.................p.........p................................................................................bbbb..bbbb......bbbb..bbbb............bb..b..................................bbbbbbb................bbbb.............................................',
-      '...........................|..........p......|.........|...................................................................................bbbbb..bbbbb....bbbbb..bbbbb......p...................pbbbbbbbbb.........b.....bbbbbb............................................',
+      '...........................|................p.........p................................................................................bbbb..bbbb......bbbb..bbbb............bb..b..................................bbbbbbb................bbbb.............................................',
+      '.....................g.....|.g.....g.p......|.........|...................................................................................bbbbb..bbbbb....bbbbb..bbbbb......p...................pbbbbbbbbb.........b.....bbbbbb............................................',
       '=====================================================================..===============...=================================================================================..===========================================================================================================',
       '======================================================================..===============...=================================================================================..===========================================================================================================',
       '======================================================================..===============...=================================================================================..===========================================================================================================',
@@ -159,9 +190,11 @@ function setup(){
 
   );
 
-
- 
-
+  
+for (g of goomba){
+  g.moving = -2;
+  g.lastTurnTime = 0;
+}
 
 
 }
@@ -169,44 +202,58 @@ function setup(){
 function draw(){
   background(92,148,252);
   mover();
+  
   // if (kb.presses('d')) {
-  //   mario.x += 16;
-
-  // }  
-  // if (kb.presses('space')) {
+    //   mario.x += 16;
+    
+    // }  
+    // if (kb.presses('space')) {
   //   mario.y += 16;
 
   // }  
   if (mouse.presses()){
     mario.y = mouse.y;
     mario.x = mouse.x;
-
+    
   }
   collisionCheckerGround();
-
+  
   camera.x = mario.x;
-  // camera.y = mario.y;
-  // if (kb.presses('d') ){
-  //   camera.x +=50;  
+  
 
-  // }
+  
+  moveEnemies();
+
+  for (let g of goomba){
+    if (btmSensor.overlapping(g)){
+      g.remove();
+
+    }
+
+  }
+  for (let q of questionB){
+    if (tpSensor.overlapping(q)){
+      q.remove();
+
+    }
+  }
 }
-
+  
 function collisionCheckerGround(){
   mario.collide(ground);
   mario.collide(questionB);
   mario.collide(brick);
   mario.collide(pipe);
+  mario.collide(goomba);
 }
-
 function mover(){
   if (kb.pressing('d') ){
-    mario.vel.x = 5;
+    mario.vel.x = 7;
     mario.ani = 'run';
     mario.mirror.x = false;
   }
   else if (kb.pressing('a')){
-    mario.vel.x = -5;
+    mario.vel.x = -7;
     mario.ani = 'run';
     mario.mirror.x = true;
 
@@ -216,71 +263,26 @@ function mover(){
     mario.vel.x = 0;
 
   }
-  if (kb.pressing('space')&&(mario.colliding(ground)||mario.colliding(brick)||(mario.colliding(pipe))||(mario.colliding(questionB)))){
+  if (kb.pressing('space')&&(mario.colliding(walkable))){
     console.log("jump");
-    mario.vel.y = -15;
+    mario.vel.y = -11.222 ;
   }
 }
-  // if (keyIsDown(LEFT_ARROW)) {
-  //   // mario.x -= 8;
-  //   mario.vel.x = -8;
-  //   // mario.ani = 'run';
-  //   mario.changeAni('run');
-
-  //   mario.mirror.x = true;
-  // }
-  // // if (keyIsDown(LEFT_ARROW) && kb.presses('space')&&mario.colliding(ground)||mario.colliding(brick)||mario.colliding(pipe)||mario.colliding(questionB)) {
-  // //   mario.vel.x = -8;
-  // //   mario.velocity.y -= 4;
-  // //   // mario.ani = 'run';
-  // //   mario.changeAni('run');
-
-  // //   mario.mirror.x = true;
-  // // }
-  
-  // // else if (keyIsDown(RIGHT_ARROW)&& kb.presses('space')&&mario.colliding(ground)||mario.colliding(brick)||mario.colliding(pipe)||mario.colliding(questionB)) {
-  // //   mario.vel.x = 8;
-  // //   mario.velocity.y -= 4;
-  // //   // mario.ani = 'run';
-  // //   mario.changeAni('run');
-
-  // //   mario.mirror.x = false;
-  // // }
-  
-  // else if (!keyIsDown(RIGHT_ARROW)&& !keyIsDown(LEFT_ARROW)) {
-  //   mario.vel.x = 0;
-  //   // mario.velocity.y -= 9;
-  //   mario.ani = 'stand';
+function moveEnemies(){
+  for (g of goomba){
+    g.vel.x = g.moving;
     
-  // }
 
+    let now =  millis();
+    if ((g.colliding(pipe)||g.colliding(pipeMD)||g.colliding(goomba))&& (now-g.lastTurnTime>300)){
+      g.moving*=-1;
+      g.vel.x = g.moving*1.5;
+      g.lastTurnTime = now;
 
+    }
 
-  // else if (keyIsDown(RIGHT_ARROW) === true) {
-  //   mario.vel.x = 8;
-     
-  //   mario.changeAni('run');
-  //   mario.mirror.x = false;
-  // }
-  // if(kb.presses('space') && (mario.colliding(ground))||(mario.colliding(brick))){
-  //   mario.velocity.y -= 5 ;
-  //   // mario.gravity = 9;
-  
-  // &&(!keyIsDown(RIGHT_ARROW)&& !keyIsDown(LEFT_ARROW)
-  //   // world.gravity =  9; 
+  }
 
-  // dont touch this whatever happens
+}
 
-  // if (kb.presses('space')&&mario.collide(ground)||kb.presses('space')&&mario.collide(brick)||kb.presses('space')&&mario.collide(questionB)){
-  //   mario.velocity.y -= 9;
-  //   mario.gravity = 9;
-  //   // world.gravity =  9; 
-
-  // }  
-  // if (keyIsDown(UP_ARROW) === true) {
-  //   mario.x -= 1;
-  // }
-  // if (keyIsDown(DOWN_ARROW) === true) {
-  //   mario.x -= 1;
-  // }
 
