@@ -71,8 +71,8 @@ function setup(){
   // mario.velocity.y += mario.gravity; 
 
   coin = new Group();
-  coin.w = 32;
-  coin.h = 32;
+  coin.w = 128;
+  coin.h = 128;
   coin.spriteSheet = coinImg;
   coin.anis.frameDelay = 2;
   coin.addAnis({
@@ -235,6 +235,7 @@ function setup(){
 function draw(){
   background(BgImg);
   mover();
+  coinCollector();
   moveEnemies();
   fotm();
   
@@ -343,3 +344,13 @@ function fotm(){
   }
 }
 
+function coinCollector(){
+  for (let c of coin){
+    if (mario.overlapping(c)){
+      c.remove();
+      
+    }
+  }
+
+}
+ 
