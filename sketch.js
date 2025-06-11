@@ -16,6 +16,8 @@ let coinImg;
 let tileSize = 16;
 let initialGoombas = [];
 let initialCoins = [];
+let score = 0;
+
 
 
 let mSpeed = 16;
@@ -35,6 +37,7 @@ function preload(){
   goombaImg = loadImage("Assets/Goomba.png");
   BgImg = loadImage("Assets/BGpic.png");
   coinImg = loadImage("Assets/coin.png")
+  pixelFont = loadFont("Assets/PressStart2P-Regular.ttf")
   
 
 }
@@ -228,16 +231,25 @@ function setup(){
 
     })
   }
+  for (let c of coin){
+    initialCoins.push({
+      x:c.x,
+      y:c.y,
+    })
+  }
 
 
 }
 
 function draw(){
   background(BgImg);
+  // background("white");
   mover();
-  coinCollector();
+  // coinCollector();s
   moveEnemies();
   fotm();
+  coinCount();
+
   
 
   if (mouse.presses()){
@@ -335,6 +347,14 @@ function reset(){
     g.lastTurnTime = 0;
     i++;
   }
+  let j = 0;
+  for (let c of coin){
+    c.x = initialCoins[j].x;
+    c.y = initialCoins[j].y;
+    c.visible = true;
+    j++;
+
+  }
   
 }
 
@@ -347,10 +367,31 @@ function fotm(){
 function coinCollector(){
   for (let c of coin){
     if (mario.overlapping(c)){
-      c.remove();
       
     }
   }
 
 }
- 
+
+function coinCount(){
+  textSize(10);
+  fill("black");
+  textFont(pixelFont)
+  textAlign(LEFT, TOP);
+
+  text("Coins:" + score, 50, 50);
+
+
+  
+  for (let c of coin){
+    if (mario.overlapping(c)&&c.visible){
+      c.visible = false;
+
+      score++;
+      
+      
+    }
+
+
+  }
+}
