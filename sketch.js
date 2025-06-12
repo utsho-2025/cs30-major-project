@@ -19,7 +19,8 @@ let tileSize = 16;
 let initialGoombas = [];
 let initialCoins = [];
 let score = 0;
-let isDead = false
+let isDead = false;
+
 let xp = 0;
 
 
@@ -42,7 +43,8 @@ function preload(){// animation, spritesheets and fonts
   goombaImg = loadImage("Assets/Goomba.png");
   BgImg = loadImage("Assets/BGpic.png");
   coinImg = loadImage("Assets/coin.png")
-  pixelFont = loadFont("Assets/PressStart2P-Regular.ttf")
+  pixelFont = loadFont("Assets/PressStart2P-Regular.ttf");
+
   
 
 }
@@ -121,6 +123,8 @@ function setup(){
   questionB.image = questionBlockImg;
   questionB.scale = tileSize/questionBlockImg.width;
   questionB.tile = "?";
+  questionB.debug = true;
+  
   questionB.w = tileSize+200;
   questionB.h = tileSize+250;
 
@@ -161,7 +165,7 @@ function setup(){
   btmSensor = new Sprite(mario.x-0.25, mario.y+mario.h/2);
   tpSensor.w = mario.w/2+10;
   tpSensor.h = 2;
-  btmSensor.w = mario.w/2;
+  btmSensor.w = mario.w/2+10;
   btmSensor.h = 2;
   tpSensor.visible = false;
   btmSensor.visible = false;
@@ -191,7 +195,7 @@ function setup(){
       '.....................?.............................................................................................................................................................................................bb...........................c.......cccc...cccccc.......................',
       '..................................................................................................................................................................................................................bbb.................................................................',
       '....................ccc..........................................................................................................................................................................................bbbb.................................................................',
-      '................?..b?b?b.....................................................b?b.................?.....b?.....bb......?..?..?......b............bb..............................................................bbbbb..................b..............................................',
+      '................?..b?b?b.....................................................b?b.................?.....b?.....bb......?..?..?......b............................................................................bbbbb..................b..............................................',
       
       '..............................................................................................................................................b..b.......................bb..b.................................bbbbbb.................bbb.........ccccccccccccc.......................',
       '...............................................................?.............................................................................bb..bb.....................bbb..bb..............bb?b.............bbbbbbb................bbbbb........ccccccccccccc....................................',
@@ -387,7 +391,7 @@ function fotm(){// fell off the map
 function coinCount(){// counting coins and calculating xp
   textSize(10);
   fill("black");
-  textFont(pixelFont)
+  textFont(pixelFont);
   textAlign(LEFT, TOP);
   
   text("Coins:" + score, 50, 50);
@@ -397,7 +401,7 @@ function coinCount(){// counting coins and calculating xp
   fill("black");
   textFont(pixelFont);
   textAlign(RIGHT, TOP);
-  text("XP:" + xp, 600, 50);
+  text("XP:" + xp, windowWidth-200, 50);
   
   for (let c of coin){
     if (mario.overlapping(c)&&c.visible){
