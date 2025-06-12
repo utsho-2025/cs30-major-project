@@ -20,11 +20,7 @@ let initialGoombas = [];
 let initialCoins = [];
 let score = 0;
 let isDead = false;
-
 let xp = 0;
-
-
-
 
 let mSpeed = 16;
 let presserR = false;
@@ -230,6 +226,7 @@ function setup(){
 
   for (g of goomba){// pushes initial position of goombas in the empty array. helps count the number of goombas used and their location
     g.moving = -2;
+    g.xpGiven = false;
     g.lastTurnTime = 0;
     initialGoombas.push({
       x:g.x,
@@ -240,10 +237,14 @@ function setup(){
 
 
   for (let c of coin){// pushes location of coins
+
     initialCoins.push({
       x:c.x,
       y:c.y,
     });
+  }
+  for (let q of questionB){
+    q.xpGiven = false;
   }
 
 
@@ -289,17 +290,14 @@ function draw(){
 
   }
   for (let q of questionB){
-    if (tpSensor.overlapping(q)){
+    if (tpSensor.overlapping(q)&& q.visible){
       q.visible = false;
       q.collider = 'none';
+      xp+= 100;
+      q.xpGiven = true;
       
     }
-    if (isDead){// if mario is dead reset the q blocks
-      q.visible = true;
-      q.collider = 's';
-      
-      
-    }
+
   }
   
 }
@@ -366,6 +364,7 @@ function reset(){// what happens after mario dies
     g.lastTurnTime = 0;
     g.visible = true;
     g.collider= 'dynamic';
+    g.xpGiven = false;
     i++;
   }
   let j = 0;
@@ -376,6 +375,16 @@ function reset(){// what happens after mario dies
     j++;
 
   }
+  for (let q of questionB ){
+    q.visible = true;
+    q.collider = 's';
+    q.xpGiven = false;
+
+  }
+  score = 0;
+  xp = 0;
+  isDead = false;
+
   
 }
 
@@ -409,29 +418,30 @@ function coinCount(){// counting coins and calculating xp
       c.visible = false;
 
       score++;
+
       
       
     }
 
 
   }
-  for (let q of questionB){
-    if (tpSensor.overlapping(q)&& !q.visible){
-      xp = xp+100;
 
-
-    }
-  }
+  
   for (let g of goomba){
-    if (btmSensor.overlapping(g)&&!g.visible){
-      xp +=200;
+    if (btmSensor.overlapping(g)&&!g.visible&&!g.xpGiven){
+      xp+=200;
+
+      g.xpGiven = true;
+
     }
+
   }
 
 
   if (isDead){// score reset
     score = 0;
     xp = 0;
+
 
   }
 }
