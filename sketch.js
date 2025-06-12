@@ -298,6 +298,7 @@ function draw(){
       q.visible = true;
       q.collider = 's';
       
+      
     }
   }
   
