@@ -117,7 +117,7 @@ function setup(){
 
 
   questionB  = new Group();
-  questionB.debug = true;
+  // questionB.debug = true;
   questionB.collider = "s";
   questionB.bbox = 'rect';
   questionB.image = questionBlockImg;
@@ -129,7 +129,7 @@ function setup(){
   questionB.h = tileSize+250;
 
   pipe  = new walkable.Group();
-  pipe.debug = true;
+  // pipe.debug = true;
   // pipe.bbox = 'rect';
   pipe.collider = "s";
   pipe.image = pipeImg;
@@ -139,7 +139,7 @@ function setup(){
   pipe.h = tileSize+190;
 
   pipeMD = new Group();
-  pipeMD.debug = true;
+  // pipeMD.debug = true;
   pipeMD.collider = "s";
   pipeMD.image = pipeMDImg;
   pipeMD.scale = tileSize/pipeMDImg.height;
@@ -148,7 +148,7 @@ function setup(){
   pipeMD.h = tileSize+190;
 
   goomba =new Group();
-  goomba.debug = false;
+  // goomba.debug = false;
   goomba.rotationLock = true;
   goomba.collider = 'dynamic';
   goomba.tile = "g";
