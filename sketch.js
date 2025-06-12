@@ -17,6 +17,9 @@ let tileSize = 16;
 let initialGoombas = [];
 let initialCoins = [];
 let score = 0;
+let isDead = false
+let xp = 0;
+
 
 
 
@@ -123,7 +126,7 @@ function setup(){
   questionB.scale = tileSize/questionBlockImg.width;
   questionB.tile = "?";
   questionB.w = tileSize+100;
-  questionB.h = tileSize+100;
+  questionB.h = tileSize+250;
 
   pipe  = new walkable.Group();
   pipe.debug = true;
@@ -170,6 +173,8 @@ function setup(){
   
   tpJoint.visible = false;
   btmJoint.visible = false;
+  
+
 
   new Tiles(
     [
@@ -268,11 +273,17 @@ function draw(){
 
   for (let g of goomba){
     if (btmSensor.overlapping(g)&&mario.vel.y >0){
-      g.remove();
+      g.visible = false;
+      g.collider= 'none';
+      
+
+
       mario.vel.y = -7;
+      
 
     }
-    else if(mario.overlapping(g)){
+    else if(mario.overlapping(g)&&g.visible){
+      isDead = true;
       reset();
     }
 
@@ -280,8 +291,14 @@ function draw(){
   }
   for (let q of questionB){
     if (tpSensor.overlapping(q)){
-      q.remove();
-
+      q.visible = false;
+      q.collider = 'none';
+      
+    }
+    if (isDead){
+      q.visible = true;
+      q.collider = 's';
+      
     }
   }
   // reset();
@@ -347,6 +364,8 @@ function reset(){
     g.vel.x = 0;
     g.moving = -2;
     g.lastTurnTime = 0;
+    g.visible = true;
+    g.collider= 'dynamic';
     i++;
   }
   let j = 0;
@@ -362,18 +381,13 @@ function reset(){
 
 function fotm(){
   if (mario.y>365){
+    isDead = true;
+
     reset();
   }
 }
 
-function coinCollector(){
-  for (let c of coin){
-    if (mario.overlapping(c)){
-      
-    }
-  }
 
-}
 
 function coinCount(){
   textSize(10);
@@ -388,7 +402,7 @@ function coinCount(){
   fill("black");
   textFont(pixelFont);
   textAlign(RIGHT, TOP);
-  text("XP:" + score, 600, 50);
+  text("XP:" + xp, 600, 50);
   
   for (let c of coin){
     if (mario.overlapping(c)&&c.visible){
@@ -399,6 +413,25 @@ function coinCount(){
       
     }
 
+
+  }
+  for (let q of questionB){
+    if (tpSensor.overlapping(q)&& !q.visible){
+      xp = xp+100;
+
+
+    }
+  }
+  for (let g of goomba){
+    if (btmSensor.overlapping(g)&&!g.visible){
+      xp +=200;
+    }
+  }
+
+
+  if (isDead){
+    score = 0;
+    xp = 0;
 
   }
 }
