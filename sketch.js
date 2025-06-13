@@ -21,7 +21,11 @@ let initialCoins = [];
 let score = 0;
 let isDead = false;
 let xp = 0;
-
+let bgMusic;
+let coinSound;
+let stompSound;
+let jumpSound;
+let qbSound;
 let mSpeed = 16;
 let presserR = false;
 let tpSensor;
@@ -40,14 +44,30 @@ function preload(){// animation, spritesheets and fonts
   BgImg = loadImage("Assets/BGpic.png");
   coinImg = loadImage("Assets/coin.png")
   pixelFont = loadFont("Assets/PressStart2P-Regular.ttf");
+  bgMusic = loadSound("Sounds/SuperMarioBros.mp3");
+  coinSound = loadSound("Sounds/coin.wav");
+  stompSound = loadSound("Sounds/stomp.wav")
+  qbSound = loadSound("Sounds/qb.wav");
+  jumpSound = loadSound("Sounds/jump.wav")
+
 
   
+
+}
+function backgroundM(){
+  bgMusic.play();
+  
+  bgMusic.setVolume(0.02); 
+  userStartAudio();
+
+  
+
 
 }
 
 
 function setup(){
-  frameRate(60); 
+  frameRate(60);  
   world.gravity.y = 35;
   new Canvas(windowWidth,windowHeight/2);
   
@@ -247,6 +267,7 @@ function setup(){
     q.xpGiven = false;
   }
 
+  backgroundM();
 
 }
 
@@ -256,6 +277,8 @@ function draw(){
   moveEnemies();
   fotm();
   coinCount();
+
+
 
   
 
@@ -273,6 +296,8 @@ function draw(){
 
   for (let g of goomba){
     if (btmSensor.overlapping(g)&&mario.vel.y >0){
+      stompSound.play();
+      stompSound.setVolume(0.07);
       g.visible = false;
       g.collider= 'none';// makes the goombas temporarily disappear
       
@@ -292,6 +317,8 @@ function draw(){
   for (let q of questionB){
     if (tpSensor.overlapping(q)&& q.visible){
       q.visible = false;
+      qbSound.play();
+      qbSound.setVolume(0.07);
       q.collider = 'none';
       xp+= 100;
       q.xpGiven = true;
@@ -415,6 +442,8 @@ function coinCount(){// counting coins and calculating xp
   
   for (let c of coin){
     if (mario.overlapping(c)&&c.visible){
+      coinSound.play();
+      coinSound.setVolume(0.07);
       c.visible = false;
 
       score++;
