@@ -29,7 +29,7 @@ let qbSound;
 let mSpeed = 16;
 let presserR = false;
 let tpSensor;
-let bgPlaying
+let bgPlaying;
 
 let btmSensor;
 
@@ -44,13 +44,13 @@ function preload(){// animation, spritesheets and fonts
   pipeMDImg = loadImage("Assets/pipeM.png");
   goombaImg = loadImage("Assets/Goomba.png");
   BgImg = loadImage("Assets/BGpic.png");
-  coinImg = loadImage("Assets/coin.png")
+  coinImg = loadImage("Assets/coin.png");
   pixelFont = loadFont("Assets/PressStart2P-Regular.ttf");
   bgMusic = loadSound("Sounds/SuperMarioBros.mp3");
   coinSound = loadSound("Sounds/coin.wav");
-  stompSound = loadSound("Sounds/stomp.wav")
+  stompSound = loadSound("Sounds/stomp.wav");
   qbSound = loadSound("Sounds/qb.wav");
-  jumpSound = loadSound("Sounds/jump.wav")
+  jumpSound = loadSound("Sounds/jump.wav");
 
 
   
@@ -59,7 +59,7 @@ function preload(){// animation, spritesheets and fonts
 function backgroundM(){
   bgMusic.play();
   
-  bgMusic.setVolume(0.02); 
+  bgMusic.setVolume(1); 
   userStartAudio();
   bgPlaying = true;
   
@@ -116,7 +116,6 @@ function setup(){
 
 
   ground  = new walkable.Group();
-  ground.debug = true;
 
   ground.collider = "s";
   ground.bbox = 'rect';
@@ -127,7 +126,6 @@ function setup(){
   ground.h = tileSize+160;
 
   brick  = new walkable.Group();
-  brick.debug = true;
   brick.bbox = 'rect';
   brick.collider = "s";
   brick.image = brickImg;
@@ -138,20 +136,16 @@ function setup(){
 
 
   questionB  = new Group();
-  // questionB.debug = true;
   questionB.collider = "s";
   questionB.bbox = 'rect';
   questionB.image = questionBlockImg;
   questionB.scale = tileSize/questionBlockImg.width;
   questionB.tile = "?";
-  questionB.debug = true;
   
   questionB.w = tileSize+200;
   questionB.h = tileSize+250;
 
   pipe  = new walkable.Group();
-  // pipe.debug = true;
-  // pipe.bbox = 'rect';
   pipe.collider = "s";
   pipe.image = pipeImg;
   pipe.scale = tileSize/pipeImg.width*3.196923;
@@ -160,7 +154,6 @@ function setup(){
   pipe.h = tileSize+190;
 
   pipeMD = new Group();
-  // pipeMD.debug = true;
   pipeMD.collider = "s";
   pipeMD.image = pipeMDImg;
   pipeMD.scale = tileSize/pipeMDImg.height;
@@ -169,7 +162,7 @@ function setup(){
   pipeMD.h = tileSize+190;
 
   goomba =new Group();
-  // goomba.debug = false;
+  
   goomba.rotationLock = true;
   goomba.collider = 'dynamic';
   goomba.tile = "g";
@@ -291,11 +284,7 @@ function draw(){
 
   
 
-  if (mouse.presses()){// this is for me to check the map, will be removed later
-    mario.y = mouse.y;
-    mario.x = mouse.x;
-    
-  }
+
   collisionCheckerGround();
   
   camera.x = mario.x;// follows mario around
